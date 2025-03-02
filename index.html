@@ -4,9 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kafka QR AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 18px;
+        }
+        select, button {
+            font-size: 16px;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Welcome to the Kafka QR AI Experience</h1>
-    <p>Scan the QR code to interact with Kafka's AI.</p>
+    <p>Select your language:</p>
+    <select id="language">
+        <option value="en">English</option>
+        <option value="cz">Czech</option>
+        <option value="de">German</option>
+    </select>
+
+    <p>Select your age group:</p>
+    <select id="age">
+        <option value="child">Child</option>
+        <option value="teen">Teen</option>
+        <option value="adult">Adult</option>
+    </select>
+
+    <br><br>
+    <button onclick="startExperience()">Start Experience</button>
+
+    <script>
+        function startExperience() {
+            var language = document.getElementById("language").value;
+            var age = document.getElementById("age").value;
+            var url = "chat.html?lang=" + language + "&age=" + age;
+            window.location.href = url;
+        }
+    </script>
 </body>
 </html>
