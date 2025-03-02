@@ -25,9 +25,9 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to the Kafka AI Experience</h1>
-    <p>Select your language:</p>
-    <select id="language">
+    <h1 id="welcome-text">Welcome to the Kafka AI Experience</h1>
+    <p id="language-text">Select your language:</p>
+    <select id="language" onchange="updateLanguage()">
         <option value="en">English</option>
         <option value="cz">Czech</option>
         <option value="de">German</option>
@@ -35,7 +35,7 @@
         <option value="ru">Russian</option>
     </select>
 
-    <p>Select your age group:</p>
+    <p id="age-text">Select your age group:</p>
     <select id="age">
         <option value="child">Child</option>
         <option value="teen">Teen</option>
@@ -46,6 +46,21 @@
     <button onclick="startExperience()">Start Experience</button>
 
     <script>
+        const translations = {
+            en: { welcome: "Welcome to the Kafka AI Experience", language: "Select your language:", age: "Select your age group:" },
+            cz: { welcome: "Vítejte v Kafka AI zkušenosti", language: "Vyberte svůj jazyk:", age: "Vyberte svou věkovou skupinu:" },
+            de: { welcome: "Willkommen beim Kafka KI Erlebnis", language: "Wählen Sie Ihre Sprache:", age: "Wählen Sie Ihre Altersgruppe:" },
+            it: { welcome: "Benvenuto nell'esperienza AI di Kafka", language: "Seleziona la tua lingua:", age: "Seleziona la tua fascia di età:" },
+            ru: { welcome: "Добро пожаловать в AI-опыт Кафки", language: "Выберите ваш язык:", age: "Выберите вашу возрастную группу:" }
+        };
+
+        function updateLanguage() {
+            const selectedLang = document.getElementById("language").value;
+            document.getElementById("welcome-text").innerText = translations[selectedLang].welcome;
+            document.getElementById("language-text").innerText = translations[selectedLang].language;
+            document.getElementById("age-text").innerText = translations[selectedLang].age;
+        }
+
         function startExperience() {
             var language = document.getElementById("language").value;
             var age = document.getElementById("age").value;
