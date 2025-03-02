@@ -61,7 +61,7 @@
                 "adult": "Respond in a deep, introspective, and philosophical way, true to Kafka’s style."
             };
 
-            let apiResponse = await fetch(`https://api.openai.com/v1/completions`, {
+            let apiResponse = await fetch(`https://kafka-ai-backend.onrender.com/chat`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
