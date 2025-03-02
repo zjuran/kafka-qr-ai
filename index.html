@@ -29,17 +29,17 @@
     <p id="language-text">Select your language:</p>
     <select id="language" onchange="updateLanguage()">
         <option value="en">English</option>
-        <option value="cz">Czech</option>
-        <option value="de">German</option>
-        <option value="it">Italian</option>
-        <option value="ru">Russian</option>
+        <option value="cz">Česky</option>
+        <option value="de">Deutsch</option>
+        <option value="it">Italiano</option>
+        <option value="ru">Русский</option>
     </select>
 
     <p id="age-text">Select your age group:</p>
     <select id="age">
-        <option value="child">Child</option>
-        <option value="teen">Teen</option>
-        <option value="adult">Adult</option>
+        <option value="child" id="age-child">Child</option>
+        <option value="teen" id="age-teen">Teen</option>
+        <option value="adult" id="age-adult">Adult</option>
     </select>
 
     <br><br>
@@ -47,11 +47,11 @@
 
     <script>
         const translations = {
-            en: { welcome: "Welcome to the Kafka AI Experience", language: "Select your language:", age: "Select your age group:", button: "Start Experience" },
-            cz: { welcome: "Vítejte v Kafka AI zkušenosti", language: "Vyberte svůj jazyk:", age: "Vyberte svou věkovou skupinu:", button: "Začít zkušenost" },
-            de: { welcome: "Willkommen beim Kafka KI Erlebnis", language: "Wählen Sie Ihre Sprache:", age: "Wählen Sie Ihre Altersgruppe:", button: "Erfahrung starten" },
-            it: { welcome: "Benvenuto nell'esperienza AI di Kafka", language: "Seleziona la tua lingua:", age: "Seleziona la tua fascia di età:", button: "Inizia l'esperienza" },
-            ru: { welcome: "Добро пожаловать в опыт ИИ Кафки", language: "Выберите ваш язык:", age: "Выберите вашу возрастную группу:", button: "Начать опыт" }
+            en: { welcome: "Welcome to the Kafka AI Experience", language: "Select your language:", age: "Select your age group:", button: "Start Experience", child: "Child", teen: "Teen", adult: "Adult" },
+            cz: { welcome: "Vítejte v Kafka AI zkušenosti", language: "Vyberte svůj jazyk:", age: "Vyberte svou věkovou skupinu:", button: "Začít zkušenost", child: "Dítě", teen: "Dospívající", adult: "Dospělý" },
+            de: { welcome: "Willkommen beim Kafka KI Erlebnis", language: "Wählen Sie Ihre Sprache:", age: "Wählen Sie Ihre Altersgruppe:", button: "Erfahrung starten", child: "Kind", teen: "Jugendlicher", adult: "Erwachsener" },
+            it: { welcome: "Benvenuto nell'esperienza AI di Kafka", language: "Seleziona la tua lingua:", age: "Seleziona la tua fascia di età:", button: "Inizia l'esperienza", child: "Bambino", teen: "Adolescente", adult: "Adulto" },
+            ru: { welcome: "Добро пожаловать в опыт ИИ Кафки", language: "Выберите ваш язык:", age: "Выберите вашу возрастную группу:", button: "Начать опыт", child: "Ребенок", teen: "Подросток", adult: "Взрослый" }
         };
 
         function updateLanguage() {
@@ -60,6 +60,9 @@
             document.getElementById("language-text").innerText = translations[selectedLang].language;
             document.getElementById("age-text").innerText = translations[selectedLang].age;
             document.getElementById("start-button").innerText = translations[selectedLang].button;
+            document.getElementById("age-child").innerText = translations[selectedLang].child;
+            document.getElementById("age-teen").innerText = translations[selectedLang].teen;
+            document.getElementById("age-adult").innerText = translations[selectedLang].adult;
         }
 
         function startExperience() {
