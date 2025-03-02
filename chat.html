@@ -48,13 +48,19 @@
 
             document.getElementById("userInput").value = "";
 
-            let response = await getKafkaResponse(userInput, language);
+            let response = await getKafkaResponse(userInput, language, age);
 
             chatBox.innerHTML += `<div class="message bot"><strong>Kafka:</strong> ${response}</div>`;
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        async function getKafkaResponse(question, lang) {
+        async function getKafkaResponse(question, lang, ageGroup) {
+            let complexity = {
+                "child": "Respond in a simple and clear way suitable for a child.",
+                "teen": "Respond in a thoughtful but accessible way suitable for a teenager.",
+                "adult": "Respond in a deep, introspective, and philosophical way, true to Kafka’s style."
+            };
+
             let apiResponse = await fetch(`https://api.openai.com/v1/completions`, {
                 method: "POST",
                 headers: {
@@ -63,7 +69,8 @@
                 },
                 body: JSON.stringify({
                     model: "gpt-4",
-                    prompt: `You are Franz Kafka. Respond to the following question in ${lang} while maintaining Kafka's deep, introspective, and sometimes absurd style:\n\n"${question}"\n\nKafka:`,
+                    prompt: `You are Franz Kafka. Respond to the following question in ${lang}, maintaining Kafka's deep, introspective style. Adjust the complexity as follows: ${complexity[ageGroup]}
+                    \nQuestion: "${question}"\nKafka:`,
                     max_tokens: 100
                 })
             });
