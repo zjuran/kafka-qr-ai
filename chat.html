@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kafka AI Chat</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f4; }
+        h1 { color: #333; }
+        .chat-box { width: 80%; max-width: 400px; margin: auto; text-align: left; border: 1px solid #ccc; padding: 10px; background: #fff; height: 300px; overflow-y: auto; }
+        .message { padding: 5px; border-radius: 5px; margin-bottom: 5px; }
+        .user { background: #d1e7ff; text-align: right; }
+        .bot { background: #e8e8e8; text-align: left; }
+        input, button { font-size: 16px; padding: 10px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1 id="chat-title">Kafka AI Chat</h1>
+    <p id="user-info"></p>
+    <div class="chat-box" id="chatBox"></div>
+    <input type="text" id="userInput" placeholder="Ask Kafka something..." />
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const language = urlParams.get("lang") || "en";
+        const age = urlParams.get("age") || "adult";
+
+        const translations = {
+            en: { title: "Kafka AI Chat", placeholder: "Ask Kafka something...", send: "Send" },
+            cz: { title: "Kafka AI Chat", placeholder: "Zeptejte se Kafky na cokoliv...", send: "Odeslat" },
+            de: { title: "Kafka KI Chat", placeholder: "Fragen Sie Kafka etwas...", send: "Senden" },
+            it: { title: "Kafka AI Chat", placeholder: "Chiedi qualcosa a Kafka...", send: "Invia" },
+            ru: { title: "Чат с Кафкой", placeholder: "Спросите Кафку о чём-нибудь...", send: "Отправить" }
+        };
+
+        document.getElementById("chat-title").innerText = translations[language].title;
+        document.getElementById("user-info").innerText = `Language: ${language.toUpperCase()}, Age Group: ${age}`;
+        document.getElementById("userInput").placeholder = translations[language].placeholder;
+        document.querySelector("button").innerText = translations[language].send;
+
+        async function sendMessage() {
+            var userInput = document.getElementById("userInput").value;
+            if (userInput.trim() === "") return;
+
+            var chatBox = document.getElementById("chatBox");
+            chatBox.innerHTML += `<div class="message user"><strong>You:</strong> ${userInput}</div>`;
+
+            document.getElementById("userInput").value = "";
+
+            let response = await getKafkaResponse(userInput, language);
+
+            chatBox.innerHTML += `<div class="message bot"><strong>Kafka:</strong> ${response}</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        async function getKafkaResponse(question, lang) {
+            let apiResponse = await fetch(`https://api.openai.com/v1/completions`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer YOUR_OPENAI_API_KEY"
+                },
+                body: JSON.stringify({
+                    model: "gpt-4",
+                    prompt: `You are Franz Kafka. Respond to the following question in ${lang} while maintaining Kafka's deep, introspective, and sometimes absurd style:\n\n"${question}"\n\nKafka:`,
+                    max_tokens: 100
+                })
+            });
+
+            let data = await apiResponse.json();
+            return data.choices[0].text.trim();
+        }
+    </script>
+</body>
+</html>
