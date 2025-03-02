@@ -43,15 +43,15 @@
     </select>
 
     <br><br>
-    <button onclick="startExperience()">Start Experience</button>
+    <button id="start-button" onclick="startExperience()">Start Experience</button>
 
     <script>
         const translations = {
-            en: { welcome: "Welcome to the Kafka AI Experience", language: "Select your language:", age: "Select your age group:" },
-            cz: { welcome: "Vítejte v Kafka AI zkušenosti", language: "Vyberte svůj jazyk:", age: "Vyberte svou věkovou skupinu:" },
-            de: { welcome: "Willkommen beim Kafka KI Erlebnis", language: "Wählen Sie Ihre Sprache:", age: "Wählen Sie Ihre Altersgruppe:" },
-            it: { welcome: "Benvenuto nell'esperienza AI di Kafka", language: "Seleziona la tua lingua:", age: "Seleziona la tua fascia di età:" },
-            ru: { welcome: "Добро пожаловать в AI-опыт Кафки", language: "Выберите ваш язык:", age: "Выберите вашу возрастную группу:" }
+            en: { welcome: "Welcome to the Kafka AI Experience", language: "Select your language:", age: "Select your age group:", button: "Start Experience" },
+            cz: { welcome: "Vítejte v Kafka AI zkušenosti", language: "Vyberte svůj jazyk:", age: "Vyberte svou věkovou skupinu:", button: "Začít zkušenost" },
+            de: { welcome: "Willkommen beim Kafka KI Erlebnis", language: "Wählen Sie Ihre Sprache:", age: "Wählen Sie Ihre Altersgruppe:", button: "Erfahrung starten" },
+            it: { welcome: "Benvenuto nell'esperienza AI di Kafka", language: "Seleziona la tua lingua:", age: "Seleziona la tua fascia di età:", button: "Inizia l'esperienza" },
+            ru: { welcome: "Добро пожаловать в опыт ИИ Кафки", language: "Выберите ваш язык:", age: "Выберите вашу возрастную группу:", button: "Начать опыт" }
         };
 
         function updateLanguage() {
@@ -59,6 +59,7 @@
             document.getElementById("welcome-text").innerText = translations[selectedLang].welcome;
             document.getElementById("language-text").innerText = translations[selectedLang].language;
             document.getElementById("age-text").innerText = translations[selectedLang].age;
+            document.getElementById("start-button").innerText = translations[selectedLang].button;
         }
 
         function startExperience() {
